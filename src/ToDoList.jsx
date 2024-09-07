@@ -10,19 +10,33 @@ function ToDoList(){
     }
 
     function addTask(){
-
+        if(newTask.trim() !== ""){    // this line is basically checking if user tries to add empty field. Even if they dont type anything its still going to add in the list. So to prevent that we used trim method to remove any white space and check if the field is empty or not
+            setTasks(t => [...t, newTask]);
+            setNewTask(""); // resetting the input field after addin
+        }
     }
 
     function deleteTask(index){
-
+        const updatedTasks = tasks.filter((_, i) => i !== index);
+        setTasks(updatedTasks);
     }
 
     function moveTaskUp(index){
+        if(index > 0) { // checking if the element is already on top we dont need to move it up further
+            const updatedTasks = [...tasks];
 
+            [updatedTasks[index], updatedTasks[index - 1]] = [updatedTasks[index - 1], updatedTasks[index]]; // basically to swap the tasks
+            setTasks(updatedTasks);
+        }
     }
 
     function moveTaskDown(index){
+        if(index < tasks.length - 1) { // checking if the element is already on bottom we dont need to move it up further
+            const updatedTasks = [...tasks];
 
+            [updatedTasks[index], updatedTasks[index + 1]] = [updatedTasks[index + 1], updatedTasks[index]]; // basically to swap the tasks
+            setTasks(updatedTasks);
+        }
     }
 
     return(
